@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Marketing.Models.NewOrders>
+@using Marketing.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Ragistation> listragistation = new Ragistation().GetAll();
+    List<Orders> listorder = new Orders().GetAll();
+    List<NewOrders> listnewOrder = new NewOrders().GetAll();
+    List<OrderItems> listorderitems = OrderItems.GetAll();
+}
+
+ <div class=" card">
+     <div class="card-header">
+         <h5 class=" text-center text-danger"><b>ORDER lIST</b></h5>
+     </div>
+     <div class=" card-body">
+         <table class="table table-bordered table-hover w-100 " id="Tbl">
+             <thead>
+                 <tr>
+                     <th>
+                         Cus Name
+                     </th>
+                     <th>
+                         Address
+                     </th>
+                     <th>
+                         Mobile
+                     </th>
+                     <th>
+                         Product Name
+                     </th>
+                     <th>
+                         Product Prize
+                     </th>
+                     <th>
+                         Qty
+                     </th>
+                     <th>
+                         Total Qty
+                     </th>
+                     <th>
+                         Total Prize
+                     </th>
+                     <th>
+                         Order Date
+                     </th>
+                 </tr>
+             </thead>
+             <tbody>
+                 @foreach (var item in Model)
+                 {
+                 <tr>
+                     <td>
+                         @{Ragistation ObjRagistation = listragistation.Find(x => x.RagisID == item.RagisID);}
+                         @ObjRagistation.Name
+
+                     </td>
+                     <td>
+                         @{Ragistation ObjRagistatio = listragistation.Find(x => x.RagisID == item.RagisID);}
+                         @ObjRagistation.Address
+
+                     </td>
+                     <td>
+                         @{Ragistation ObjRagistati = listragistation.Find(x => x.RagisID == item.RagisID);}
+                         @ObjRagistation.Mobile
+
+                     </td>
+                     
+                     <td>
+                         @Html.DisplayFor(modelItem => item.ProductName)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.ProductPrize)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.Qty)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.TotalQty)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.PrizeTotal)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.Create_Date)
+                     </td>
+                 </tr>
+             }
+             </tbody>
+             </table>
+     </div>
+ </div>
+

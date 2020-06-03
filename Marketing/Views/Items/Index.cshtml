@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Marketing.Models.Items>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Marketing.Models
+@{ List<Category> listgategory = Category.GetAll();}
+<div class=" card">
+    <div class="card-header">
+        <h5 class=" text-center text-danger"><b>Item List</b></h5>
+        <hr />
+        <a href="/Items/CreateEdit?ItemID=0" class=" btn btn-success float-right"><i class="fas fa-plus-square"></i></a>
+    </div>
+    <div class=" card-body">
+        <table class="table table-bordered table-hover w-100 " id="Tbl">
+            <thead>
+                <tr>
+                    <th>
+                        Photo
+                    </th>
+                    <th>Category</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Prize)
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <img src="@item.Photo_File" height="50" width="50" />
+                        </td>
+                        <td>
+                            @{ Category Objcategary = listgategory.Find(x => x.CatID == item.CatID);}
+                            @Objcategary.Name
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prize)
+                        </td>
+                        <td>
+                            <a href=" /Items/CreateEdit?ItemID=@item.ItemID" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                        </td>
+                        <td>
+                            <a href=" /Items/Delete?ID=@item.ItemID" class=" btn btn-danger"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

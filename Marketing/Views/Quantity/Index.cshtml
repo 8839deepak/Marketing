@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Marketing.Models.Quantity>
+@using Marketing.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ List<Items> quantities = Items.GetAll();
+    List<Category> listcategory = Category.GetAll();}
+
+<div class=" card">
+    <div class="card-header">
+        <h5 class=" text-center text-danger"><b>Item List</b></h5>
+        <hr />
+        <a href="/Quantity/CreateEdit?QunID=0" class=" btn btn-success float-right"><i class="fas fa-plus-square"></i></a>
+    </div>
+    <div class=" card-body">
+        <table class="table table-bordered table-hover w-100 " id="Tbl">
+            <thead>
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        Category Name
+                    </th> 
+                    <th>
+                       Items Name
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @{Category Objcategory = listcategory.Find(x => x.CatID == item.CatID); }
+                        @Objcategory.Name
+                    </td>
+                    <td>
+                        @{Items Objitems = quantities.Find(x => x.ItemID == item.ItemID); }
+                        @Objitems.Name
+                    </td>
+
+                    <td>
+                        <a href=" /Quantity/CreateEdit?QunID=@item.QunID" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                    </td>
+                    <td>
+                        <a href=" /Quantity/Delete?id=@item.QunID" class=" btn btn-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

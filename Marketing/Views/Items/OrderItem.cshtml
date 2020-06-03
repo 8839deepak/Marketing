@@ -1,0 +1,421 @@
+﻿@model IEnumerable<Marketing.Models.Cart>
+@using Marketing.Models
+@{
+    Layout = "~/Views/Shared/WebLayOut.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from htmldemo.themessoft.com/freshia/version1/shopping_cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 May 2020 07:21:54 GMT -->
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="refresh" content="" />
+
+    <!-- Favicons Icon -->
+    <link rel="icon" href="http://htmldemo.themessoft.com/freshia/version1/images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://htmldemo.themessoft.com/freshia/version1/images/favicon.png" type="image/x-icon" />
+    <title>Freshia premium HTML5 &amp; CSS3 template</title>
+
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS Style -->
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/simple-line-icons.css" media="all">
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/style.css" media="all">
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/internal.css" media="all">
+
+
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/revslider.css">
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/flexslider.css">
+    <link rel="stylesheet" type="text/css" href="http://htmldemo.themessoft.com/freshia/version1/css/jquery.mobile-menu.css">
+
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,600,800,400' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i,900" rel="stylesheet">
+</head>
+
+<body class="shopping-cart-page">
+    <div id="page">
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="header-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-6 hidden-xs">
+                                <!-- Header Top Links -->
+                                <div class="toplinks">
+                                    <div class="links">
+                                        <div class="login float-right"><a href="/Home/Login"><span class="hidden-xs">Log In</span></a> </div>
+                                    </div>
+                                </div>
+                                <!-- End Header Top Links -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 header-phone">
+                            <i class="fa fa-mobile"></i>  +91 9039958692
+                        </div>
+                        <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 logo-block">
+                            <!-- Header Logo -->
+                            <div class="logo"> <a title="Freshia Basket" href="#"><img alt="Freshia" src="http://htmldemo.themessoft.com/freshia/version1/images/logo1.png"> </a> </div>
+                            <!-- End Header Logo -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end header -->
+            <!-- Navigation -->
+            <nav>
+                <div class="container">
+                    <div class="mm-toggle-wrap">
+                        <div class="mm-toggle"><i class="fa fa-align-justify"></i><span class="mm-label">Menu</span> </div>
+                    </div>
+                    <div class="nav-inner">
+                        <!-- BEGIN NAV -->
+                        <ul id="nav" class="hidden-xs">
+                            <li class="level0 parent drop-menu" id="nav-home">
+                                <a href="/Home/ItemLoadFunction" class="level-top"><i class="fa fa-home"></i><span class="hidden">Home</span></a>
+                            </li>
+                            <li class="nav-custom-link mega-menu">
+                                <a href="#" class="level-top">
+                                    <span>
+                                        @Session["Name"]
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!--nav-->
+                    </div>
+                </div>
+            </nav>
+            <!-- end nav -->
+        </header>
+        <!-- end header -->
+        <section class="main-container col1-layout">
+            <div class="main container">
+                <div class="col-main">
+                    <div class="cart wow bounceInUp animated">
+                        <div class="page-title">
+                            <h2>Shopping Cart</h2>
+                        </div>
+                        <div class="table-responsive">
+                            <form method="post" action="#updatePost/">
+                                <input type="hidden" value="Vwww7itR3zQFe86m" name="form_key">
+                                <fieldset>
+                                    @*@using (Html.BeginForm("CreateEdit", "Order", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {*@
+                                    <table class="data-table cart-table  " id="shopping-cart-table">
+                                        <colgroup>
+                                            <col width="1">
+                                            <col>
+                                            <col width="1">
+                                            <col width="1">
+                                            <col width="1">
+                                            <col width="1">
+                                            <col width="1">
+                                            <col width="1">
+                                        </colgroup>
+                                        <thead>
+                                            <tr class="first last">
+                                                <th rowspan="1">&nbsp;</th>
+                                                <th rowspan="1"><span class="nobr">Product Name</span></th>
+                                                <th rowspan="1">Add Qty</th>
+                                                <th colspan="1" class="a-center"><span class="nobr">Unit Price</span></th>
+                                                <th class="a-center" rowspan="1">Qty</th>
+                                                <th class="a-center" rowspan="1">Total Count</th>
+                                                <th colspan="1" class="a-center">Subtotal</th>
+                                                <th style=" display:none"></th>
+                                                <th>Remove Quantity</th>
+
+                                            </tr>
+                                        </thead>
+                                        @{ int ItemID = int.Parse(Request.QueryString["ItemID"]);
+                                            Items ObjItems = new Items().GetOne(ItemID);
+
+                                        }
+
+                                        <tbody>
+
+                                            @foreach (var item in Model)
+                                            {
+                                                Items ObjItem = new Items().GetOne(item.ItemID);
+                                                List<OrderItems> listorder = OrderItems.GetAll();
+                                                OrderItems orderlist = listorder.Find(x => x.ItemID == ObjItem.ItemID);
+                                                int Cnt = 0;
+                                                int ItemPrize = 0;
+                                                ItemPrize = orderlist.QTY * orderlist.Count;
+
+                                                //if (orderlist.QTY == "250")
+                                                //{
+                                                //    ItemPrize = orderlist.Prize * 1 / 4 * orderlist.Count;
+                                                //}
+                                                //if (orderlist.QTY == "500")
+                                                //{
+                                                //    ItemPrize = orderlist.Prize * 2 / 4 * orderlist.Count;
+                                                //}
+                                                //if (orderlist.QTY == "750")
+                                                //{
+                                                //    ItemPrize = orderlist.Prize * 3 / 4 * orderlist.Count;
+                                                //}
+                                                //if (orderlist.QTY == "1000")
+                                                //{
+                                                //    ItemPrize = orderlist.Prize * orderlist.Count;
+                                                //}
+                                                //if (orderlist.QTY=="1500")
+                                                //{
+                                                //    ItemPrize = orderlist.Prize * int.Parse(Request.QueryString["orderlist.QTY "])*2 / 8 * orderlist.Count;
+                                                //}
+                                                //if (orderlist.QTY=="2000")
+                                                //{
+                                                //    ItemPrize = orderlist.Prize * int.Parse(Request.QueryString["orderlist.QTY "]) / 4 * orderlist.Count;
+                                                //}
+                                                Cnt = orderlist.Count;
+                                                <tr class="first odd MainDivs " id="thisTable">
+                                                    <td class="image"><a class="product-image" title="Sample Product" href="#/women-s-crepe-printed-black/"><img width="75" alt="Sample Product" src="@ObjItem.Photo_File"></a></td>
+                                                    <td style="width: 620px"><h2 class="product-name"> <a class="Name" href="#/women-s-crepe-printed-black/" OOID="@orderlist.ItemID" id="Name@(orderlist.ItemID)">@ObjItem.Name</a> </h2></td>
+                                                    <td style="width:152px">
+                                                        <div class="row">
+                                                            <div class=" col-sm-4">
+                                                                <a class="btn btn-success" OOID="@orderlist.ItemID" onclick="MinusItemQty(this,1)"><i class=" fa fa-minus"></i></a>
+                                                            </div>
+                                                            <div class=" col-sm-4">
+                                                                <input style="width:50px; padding-left: 0px; padding-right: 0px;" type="text" class="form-control readonly " id="@orderlist.ItemID" size="10" text-center" name="french-hens" value="@Cnt" min="0">
+                                                            </div>
+                                                            <div class=" col-sm-4">
+                                                                <a class="btn btn-danger" OOID="@orderlist.ItemID" onclick="PlusItemQty(this,1)"><i class=" fa fa-plus"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="a-right Prize" OOID="@orderlist.ItemID" id="Prize@(orderlist.ItemID)"> @orderlist.Prize </td>
+                                                    <td class="a-center movewishlist" OOID="@orderlist.ItemID" id="Qty@(orderlist.ItemID)">
+                                                        <span class="cart-price"> <span class="price"> @orderlist.QTY</span> </span>
+                                                    </td>
+                                                    <td OOID="@orderlist.ItemID" id="Count@(orderlist.ItemID)" class="Count">
+                                                        <span class="cart-price"> <span class="price">@orderlist.Count</span> </span>
+                                                    </td>
+                                                    <td class="a-right movewishlist" id="Rate"><span class="cart-price"> <span class="price">@ItemPrize</span> </span></td>
+                                                    <td style="display:none">@orderlist.RagisID</td>
+                                                    <td class="a-right movewishlist"><a onclick="removeitemqty(this);" OOID="@(orderlist.ItemID)" class="btn btn-danger"><i class="fa fa-minus"></i></a></td>
+
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                    @*}*@
+                                    <a href="/Home/ItemLoadFunction" class="btn btn-primary">Add More</a>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <!-- BEGIN CART COLLATERALS -->
+                        <div class="cart-collaterals row">
+                            <div class="col-sm-4">
+
+                            </div>
+                            <div class="col-sm-4">
+
+                            </div>
+                            <div class="col-sm-4 ">
+                                <div class="totals">
+                                    <h3>Shopping Cart Total</h3>
+                                    <div class="inner">
+                                        <table class="table shopping-cart-table-total" id="shopping-cart-totals-table">
+                                            <colgroup>
+                                                <col>
+                                                <col width="1">
+                                            </colgroup>
+                                            <tfoot>
+                                                @{int amt = 0;
+                                                        int totalprize = 0;
+
+                                                        int UserId = int.Parse(Session["RagisID"].ToString());
+                                                        List<OrderItems> userorderitems = OrderItems.GetAll();
+                                                        OrderItems ObjORDER = userorderitems.Find(x => x.ItemID == ItemID);
+                                                        var sakalaka = userorderitems.FindAll(x => x.RagisID == UserId);
+                                                        //if (ObjORDER.ItemID)
+                                                        //{
+
+                                                        //    for (int i = 0; i < sakalaka.Count; i++)
+                                                        //    {
+                                                        //        amt += totalprize - userorderitems[i].Prize;
+                                                        //    }
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        for (int i = 0; i < sakalaka.Count; i++)
+                                                        {
+                                                            amt += userorderitems[i].QTY * userorderitems[i].Count;
+                                                        }
+                                                    
+
+                                                    totalprize += amt;
+
+
+                                                }
+                                                <tr>
+                                                    <td colspan="1" class="a-left" style=""><strong>Grand Total</strong></td>
+                                                    <td class="a-right"><strong><span class="price" id="totalsoppingprize">@totalprize</span></strong></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                        <ul class="checkout">
+                                            <li>
+                                                <a onclick="printdata()"   class="button btn-proceed-checkout" title="Proceed to Checkout"><span>Proceed to Checkout</span></a> 
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <!-- End Footer -->
+    <!-- JavaScript -->
+    <script type="text/javascript" src="http://htmldemo.themessoft.com/freshia/version1/js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://htmldemo.themessoft.com/freshia/version1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://htmldemo.themessoft.com/freshia/version1/js/revslider.js"></script>
+    <script type="text/javascript" src="http://htmldemo.themessoft.com/freshia/version1/js/common.js"></script>
+    <script type="text/javascript" src="http://htmldemo.themessoft.com/freshia/version1/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="http://htmldemo.themessoft.com/freshia/version1/js/jquery.mobile-menu.min.js"></script>
+</body>
+
+<!-- Mirrored from htmldemo.themessoft.com/freshia/version1/shopping_cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 May 2020 07:21:55 GMT -->
+</html>
+<script>
+    function removeitemqty(Event) {
+        var ID = $(Event).attr('OOID');
+        $.ajax({
+            type: 'GET',
+            url: "/Items/RemoveQty?ItemID=" + ID,
+            success: function (data) {
+
+            }
+        });
+    }
+    function MinusItemQty(Event, type) {
+        console.log("kki");
+        var ItemID = $(Event).attr('OOID');
+        var Inputvalue = parseFloat($("#" + ItemID).val());
+        var Prize = parseFloat($("#Prize" + ItemID).text());
+        var Qty = parseFloat($("#Qty" + ItemID).text());
+        if (type == 1) {
+            Inputvalue--;
+        }
+        $.ajax({
+            type: 'GET',
+            url: "/Items/UpdateQty?ItemID=" + ItemID + "&Inputvalue=" + Inputvalue + "&Prize=" + Prize + "&Qty=" + Qty,
+            success: function (data) {
+                var Jobj = JSON.parse(data);
+                if (Jobj.Status == 400) {
+                    $("#Rate" + buttonID).val(Jobj.Rate);
+                    alert(Jobj.MSG);
+                    return;
+                }
+                else {
+                    $("#" + OIID).val(Cnt);
+                    $("#IntPrice" + OIID).text(Jobj.MSG);
+                }
+            },
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
+                $('#waiting').hide();
+            }
+        });
+    }
+    function PlusItemQty(Event, type) {
+        console.log("kki");
+        var ItemID = $(Event).attr('OOID');
+        var Inputvalue = parseFloat($("#" + ItemID).val());
+        var Prize = parseFloat($("#Prize" + ItemID).text());
+        var Qty = parseFloat($("#Qty" + ItemID).text());
+        if (type == 1) {
+            Inputvalue++;
+        }
+        $.ajax({
+            type: 'GET',
+            url: "/Items/UpdateQty?ItemID=" + ItemID + "&Inputvalue=" + Inputvalue + "&Prize=" + Prize + "&Qty=" + Qty,
+            success: function (data) {
+                var Jobj = JSON.parse(data);
+                if (Jobj.Status == 400) {
+                    $("#Rate" + buttonID).val(Jobj.Rate);
+                    alert(Jobj.MSG);
+                    return;
+                }
+                else {
+                    $("#" + OIID).val(Cnt);
+                    $("#IntPrice" + OIID).text(Jobj.MSG);
+                }
+                // not();
+            },
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
+                $('#waiting').hide();
+            }
+        });
+    }
+    function printdata() {
+        console.log("sd");
+        var NewOrderList = [];
+        var listOrders = {};
+        var TotalPrize = $("#totalsoppingprize").text();
+        if (TotalPrize < 100) {
+            alert("Can't Order Under 100rs");
+            return;
+        }
+        $('#shopping-cart-table tbody tr').each(function () {
+            console.log("sad");
+            var col2 = $(this).find("td:eq(1)").text();
+            var col3 = $(this).find("td:eq(3)").text();
+            var col4 = $(this).find("td:eq(4)").text();
+            var col5 = $(this).find("td:eq(5)").text();
+            var col7 = $(this).find("td:eq(7)").text();
+            var Objtable = {};
+            Objtable.ProductName = col2;
+            Objtable.ProductPrize = col3;
+            Objtable.Qty = col4;
+            Objtable.TotalQty = col5;
+            Objtable.PrizeTotal = TotalPrize;
+            Objtable.RagisID = col7;
+            NewOrderList.push(Objtable);
+
+        });
+        listOrders.NewOrders = NewOrderList;
+        $.ajax({
+            type: 'POST',
+            url: " /Order/CreateEdit",
+            data: JSON.stringify(listOrders),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                alert("Your Order Has Been SuccessFully");
+
+                // not();
+            },
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
+                $('#waiting').hide();
+            }
+        });
+    }
+</script>
+
+
+
+
+
+

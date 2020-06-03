@@ -1,0 +1,27 @@
+html, body {
+            font-family: 'Open Sans',sans-serif;
+            font-size: 14px;
+            margin: 0px;
+            padding: 0px;
+            max-width: 1600px;
+			height:100%;
+			margin:0 auto;
+        }
+
+       #waiting , #dialogoverlay {
+            z-index: 1050;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,25,48,0.95);
+        }
+
+        #pwaiting , #dialogbox {			
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+		div.dataTables_wrapper {    width: 100%;    margin: 0 auto;}
+	.dataTables_scrollHeadInner{width:100% !important;}
+

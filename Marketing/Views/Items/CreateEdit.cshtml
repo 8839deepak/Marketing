@@ -1,0 +1,68 @@
+﻿@model Marketing.Models.Items
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Marketing.Models
+@{ List<Category> listcategory = Category.GetAll();
+    List<Quantity> quantities = Quantity.GetAll();
+
+    }
+<div class=" card">
+    <div class=" card-header">
+        <h4 class=" text-center text-danger"><b>Create Items</b></h4>
+        <hr />
+    </div>
+    <div class=" card-body">
+        @using (Html.BeginForm("CreateEdit", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ItemID)
+            <div class="row">
+                @if (Model.CatID == 0)
+                {
+                    <div class="col-sm-12 text-center">
+                        <img id="DemoUser" src="~/Image/man-polaroid-pictures.png" width="100" height="100" class="img img-rounded" />
+                    </div>
+                    <div class="col-sm-12">
+                        @Html.LabelFor(model => model.Photo_File, htmlAttributes: new { @class = "control-label  " })
+                        @Html.EditorFor(model => model.Photo_File, new { htmlAttributes = new { Type = "file", @class = "form-control", required = "required", accept = "image/jpeg", onchange = "document.getElementById('DemoUser').src = window.URL.createObjectURL(this.files[0])" } })
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-12 text-center">
+                        <img id="DemoUser" src="@Model.Photo_File" width="100" height="100" class="img img-rounded" />
+                    </div>
+                    <div class="col-sm-12">
+                        @Html.LabelFor(model => model.Photo_File, htmlAttributes: new { @class = "control-label  " })
+                        @Html.EditorFor(model => model.Photo_File, new { htmlAttributes = new { Type = "file", @class = "form-control", accept = "image/jpeg", onchange = "document.getElementById('DemoUser').src = window.URL.createObjectURL(this.files[0])" } })
+                    </div>
+                }
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.CatID, htmlAttributes: new { @class = "control-label  " })
+                    @Html.DropDownListFor(model => model.CatID, new SelectList(listcategory, "CatID", "Name", Model.CatID), "Select Category", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CatID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label  " })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.Prize, htmlAttributes: new { @class = "control-label  " })
+                    @Html.EditorFor(model => model.Prize, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Prize, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-4">
+                    @Html.Label("Quantity")
+                    @Html.DropDownListFor(model => model.QunID,   new SelectList(quantities, "QunID", "Name",Model.QunID), "Select Quantity", new { @class = "form-control" } )
+                    @Html.ValidationMessageFor(model => model.QunID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-1 p-2">
+                    @Html.Label("SAVE", new { @class = "text-white" })
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

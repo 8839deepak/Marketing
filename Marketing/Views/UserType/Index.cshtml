@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Marketing.Models.UserType>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card">
+    <div class=" card-header">
+        <h5 class="text-center text-danger"><b>List User</b></h5>
+        <hr />
+        <a href=" /UserType/CreateEdit?UserID=0" class=" btn btn-success float-right"><i class="fa  fa-plus"></i></a>
+    </div>
+    <div class="card-body">
+        <table class="table" id="Tbl">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            <a href=" /UserType/CreateEdit?UserID=@item.UserID" class=" btn btn-warning  "><i class="fa  fa-edit"></i></a>
+
+                        </td>
+                        <td>
+                            <a href=" /UserType/Delete?ID=@item.UserID" class=" btn btn-danger  "><i class="fa  fa-trash"></i></a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

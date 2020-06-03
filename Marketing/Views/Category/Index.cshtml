@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Marketing.Models.Category>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card">
+    <div class=" card-header">
+        <h5 class=" text-danger text-center"><b>Category List</b></h5>
+        <hr />
+        <a href="/Category/CreateEdit?CatID=0" class=" btn btn-success float-right"><i class="fas fa-plus-square"></i></a>
+
+    </div>
+    <div class=" card-body">
+        <table class="table table-bordered table-hover w-100 " id="Tbl">
+            <thead>
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            <a href="/Category/CreateEdit?CatID=@item.CatID" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                        </td>
+                        <td>
+                            <a href="/Category/Delete?ID=@item.CatID" class=" btn btn-danger"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

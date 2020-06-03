@@ -1,0 +1,810 @@
+﻿@{ Layout = "~/Views/Shared/WebLayOut.cshtml";}
+@using Marketing.Models
+@{
+    List<Category> categorilist = Category.GetAll();
+    List<Items> listitems = Items.GetAll();
+}
+<!-- cart details-->
+@{
+    if (Session["Cart"] == null)
+    {
+        Session["Cart"] = new List<Cart>();
+    }
+}
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" data-backdrop="static" style=" margin-top:10%" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center text-danger" id="exampleModalLongTitle">
+                    <b>Ragistation User Self</b>
+                </h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("RagisterSave", "Ragistation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="col-sm-3">
+                        @Html.Label("Name")
+                        <input type="text" id="Name" class="form-control" />
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.Label("Mobile")
+                        <input type="text" id="mobile" class="form-control" max="10" />
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.Label("City")
+                        <select class="form-control" id="City">
+                            <option value="Raipur">Raipur</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.Label("Address")
+                        <select class="form-control" id="address" required>
+                            <option value="">Select Address</option>
+                            <option value="Kabir Nagar">Kabir Nagar</option>
+                            <option value="Harshit Nagar ">Harshit Nagar </option>
+                            <option value="Parmanand Nagar">Parmanand Nagar</option>
+                            <option value="Kota">Kota</option>
+                            <option value="Koteshwar Nagar">Koteshwar Nagar</option>
+                            <option value="Vridhi Nagar">Vridhi Nagar</option>
+                            <option value="Ramdarbar">Ramdarbar</option>
+                            <option value="Teacher Colony">Teacher Colony</option>
+                            <option value="Bhawani Nagar">Bhawani Nagar</option>
+                            <option value="Maruti Nagar">Maruti Nagar</option>
+                            <option value="Mohba Bazar">Mohba Bazar</option>
+                            <option value="Sarvoday Nagar">Sarvoday Nagar</option>
+                            <option value="AmaNaka">AmaNaka</option>
+                            <option value="Azad Nagar">Azad Nagar</option>
+                            <option value="TatiBand Colony">TatiBand Colony</option>
+                            <option value="Shree SaiNath Nagar">Shree SaiNath Nagar</option>
+                            <option value="Vikash Nagar">Vikash Nagar</option>
+                            <option value="Pritam Nagar">Pritam Nagar</option>
+                            <option value="Ashok Nagar">Ashok Nagar</option>
+                            <option value="Gugoan">Gugoan</option>
+                            <option value="bamleshwari Nagar">bamleshwari Nagar</option>
+                            <option value="Daldal Seoni"> Daldal Seoni</option>
+                            <option value="Shivanand Nagar">Shivanand Nagar</option>
+                            <option value="Anant Vihar">Anant Vihar</option>
+                            <option value="Harsh Vihar">Harsh Vihar</option>
+                            <option value="VV Vihar">VV Vihar</option>
+                            <option value="LIC Colony">LIC Colony</option>
+                            <option value="Adarsh Nagar">Adarsh Nagar</option>
+                            <option value="Prem Nagar">Prem Nagar</option>
+                            <option value="Aman Nagar">Aman Nagar</option>
+                            <option value="Mowa Bazar">Mowa Bazar</option>
+                            <option value="Dubey Colony">Dubey Colony</option>
+                            <option value="Kapa">Kapa</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class=" col-sm-10"></div>
+                        <div class="col-sm-2">
+                            <input type="submit" value="Save" onclick="Save();" class="btn btn-success " style="margin-top:20px; margin-bottom:7px" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart details-->
+<div id="page">
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="header-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-6 hidden-xs">
+                            <!-- Header Top Links -->
+                            <div class="toplinks">
+                                <div class="links">
+                                    <div class="login float-right"><a href="/Home/Login"><span class="hidden-xs">Log In</span></a> </div>
+                                </div>
+                            </div>
+                            <!-- End Header Top Links -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 header-phone">
+                        <i class="fa fa-mobile"></i>  +91 9039958692
+                    </div>
+                    <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12 logo-block">
+                        <!-- Header Logo -->
+                        <div class="logo"> <a title="Freshia Basket" href="#"><img alt="Freshia" src="http://htmldemo.themessoft.com/freshia/version1/images/logo1.png"> </a> </div>
+                        <!-- End Header Logo -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end header -->
+        <!-- Navigation -->
+        <nav>
+            <div class="container">
+                <div class="mm-toggle-wrap">
+                    <div class="mm-toggle"><i class="fa fa-align-justify"></i><span class="mm-label">Menu</span> </div>
+                </div>
+                <div class="nav-inner">
+                    <!-- BEGIN NAV -->
+                    <ul id="nav" class="hidden-xs">
+                        <li class="level0 parent drop-menu" id="nav-home">
+                            <a href="/Home/ItemLoadFunction" class="level-top"><i class="fa fa-home"></i><span class="hidden">Home</span></a>
+                        </li>
+                        <li class="nav-custom-link mega-menu">
+                            <a href="#" class="level-top" id="RagisterID" style="display:none">@Session["RagisID"]  </a>
+                            <a href="#" class="level-top" >  @Session["Name"]  </a>
+                        </li>
+                    </ul>
+                    <!--nav-->
+                </div>
+            </div>
+        </nav>
+        <!-- end nav -->
+    </header>
+    <!-- Slider -->
+    <div id="thm-slideshow" class="thm-slideshow">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container'>
+                        <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
+                            <ul>
+                                <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='http://htmldemo.themessoft.com/freshia/version1/images/slide-img1.jpg'>
+                                    <img src="~/Image/Slide4.jpg" alt="slide-img" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
+                                    <div class="info">
+                                        <div class='tp-caption ExtraLargeTitle sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Modern Design</span> </div>
+                                        <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Simply delicious</span> </div>
+                                        <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1450' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>In augue urna, nunc, tincidunt, augue, augue facilisis facilisis.</div>
+                                    </div>
+                                </li>
+                                <li data-transition='random' data-slotamount='7' data-masterspeed='1000' data-thumb='http://htmldemo.themessoft.com/freshia/version1/images/slide-img2.jpg'>
+                                    <img src="~/Image/slide5.png" data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' />
+                                    <div class="info">
+                                        <div class='tp-caption ExtraLargeTitle sft slide2  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1100' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'><span>Mega Sale</span> </div>
+                                        <div class='tp-caption LargeTitle sfl  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1300' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>Season Sale </div>
+                                        <div class='tp-caption Title sft  tp-resizeme ' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Power2.easeInOut' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Slider -->
+    <!-- our features -->
+    <div class="content-page">
+        <div class="container">
+            <!-- featured category fashion -->
+            <div class="category-product">
+                <div class="navbar nav-menu">
+                    <div class="navbar-collapse">
+                        <ul class="nav navbar-nav w-100">
+                            <li>
+                                <div class="new_title">
+                                    <h2>Our Products</h2>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <div class="product-bestseller">
+                    <div class="product-bestseller-content">
+                        <div class="product-bestseller-list">
+                            <div class="tab-container">
+                                <!-- tab product -->
+                                <div class="tab-panel active" id="tab-1">
+                                    <div class="category-products">
+                                        <ul class="products-grid">
+                                            @foreach (var ItemList in listitems)
+                                            {
+                                                <li class="item col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                                                    <div class="item-inner">
+                                                        <div class="item-img">
+                                                            <div class="item-img-info">
+                                                                <a class="product-image" title="Retis lapen casen" href="#"> <img alt="Retis lapen casen" src="@ItemList.Photo_File"> </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-info">
+                                                            <div class="info-inner">
+                                                                <div class="item-title"></div>
+                                                                <div class="item-content">
+                                                                    <div class="rating">
+                                                                        <div class="ratings">
+                                                                            <div class="rating-box">
+                                                                                <div style="width:80%" class="rating"></div>
+                                                                            </div>
+                                                                            <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="action">
+                                                                        <a title="Retis lapen casen"><b>@ItemList.Name</b>  </a>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- tab product -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bestsell Slider -->
+    <section class="bestsell-pro">
+        <div class="container">
+            <div class="slider-items-products">
+                <div class="bestsell-block">
+                    <div id="bestsell-slider" class="product-flexslider hidden-buttons">
+                        @foreach (var item in categorilist)
+                        {
+                            var listfilteritem = listitems.FindAll(x => x.CatID == item.CatID);
+                            <div class="home-block-inner">
+                                <div class="block-title">
+                                    <h2>@item.Name </h2>
+                                </div>
+                            </div>
+                            <div class="slider-items slider-width-col4 products-grid block-content">
+                                @foreach (var items in listfilteritem)
+                                {
+                                    <div class="item">
+                                        <div class="item-inner">
+                                            <div class="item-img">
+                                                <div class="item-img-info">
+                                                    <a class="product-image" title="Retis lapen casen" OOID="@items.ItemID" id="Photo@(items.ItemID)"> <img alt="Retis lapen casen" height="150" width="100" src="@items.Photo_File"> </a>
+                                                    <div class="sale-label new-top-left">sale</div>
+                                                </div>
+                                            </div>
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <label title="Retis lapen casen" OOID="@items.ItemID" id="ItemName@(items.ItemID)"> @items.Name </label> </div>
+                                                    <div class="item-content">
+                                                        <div class="item-price">
+                                                            <div class="price-box">
+                                                                <label class="text-danger" OOID="@items.ItemID" id="Prize@(items.ItemID)"><i class="fa fa-rupee"></i>@items.Prize</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box">
+                                                                @{ var Subunitlist = Quantity.GetAll();
+                                                                    List<Category> listcategory = Category.GetAll();
+                                                                    List<Items> listitem = Items.GetAll();
+                                                                    Items ObjItem = listitem.Find(x => x.ItemID > 0);
+                                                                    var nzgs = Subunitlist.FindAll(x => x.CatID == item.CatID);
+                                                                    Subunitlist = nzgs.FindAll(x => x.ItemID == items.ItemID);
+                                                                }
+                                                                <select class="form-control" id="cars@(items.ItemID)" OOID="@items.ItemID" required>
+                                                                    @foreach (var tr in Subunitlist)
+                                                                    {
+                                                                        <option>
+                                                                            @tr.Name
+                                                                        </option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        @*<div class=" row text-center mt-2 ">
+                                                                <select id="cars@(items.ItemID)" OOID="@items.ItemID" class="form-control " onchange="UserRagistation(this)">
+                                                                    <option value="250">250 Gram</option>
+                                                                    <option value="500">500 Gram</option>
+                                                                    <option value="750">750 Gram</option>
+                                                                    <option value="1000">1 Kg</option>
+                                                                    <option value="1500">1.5 Kg</option>
+                                                                    <option value="2000">2 Kg</option>
+                                                                </select><br><br>
+                                                            </div>*@
+                                                        <div class="action">
+                                                            <a class="button btn-cart" href="/Items/OrderItem?ItemID=@items.ItemID&UserID=@Session["RagisID"]" title="" onclick="OrderSave(this);" OOID="@items.ItemID" data-original-title="Add to Cart"><span>Add To Cart</span> </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Bestsell Slider -->
+    <!-- bottom banner section -->
+    <div class="bottom-banner-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="testi-slider">
+                        <div>
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <div class="avatar"><img src="http://htmldemo.themessoft.com/freshia/version1/images/member1.jpg" alt="slide3"></div>
+                                        <div>
+                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum."</p>
+                                            <div class="clients_author">
+                                                <a href="#" target="_blank">
+                                                    Karla Anderson	<span>Happy Customer</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="avatar"><img src="http://htmldemo.themessoft.com/freshia/version1/images/member2.png" alt="slide3"></div>
+                                        <div>
+                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum."</p>
+                                            <div class="clients_author">
+                                                <a href="#" target="_blank">
+                                                    John Smith	<span>Happy Customer</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="avatar"><img src="http://htmldemo.themessoft.com/freshia/version1/images/member3.png" alt="slide3"></div>
+                                        <div>
+                                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum."</p>
+                                            <div class="clients_author">
+                                                <a href="#" target="_blank">
+                                                    Stephen Doe	<span>Happy Customer</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ol class="carousel-indicators">
+                                    <li class="active" data-target="#carousel-example-generic" data-slide-to="0"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                                </ol>
+                                <a class="left carousel-control" href="#" data-slide="prev"> <span class="sr-only">Previous</span> </a> <a class="right carousel-control" href="#" data-slide="next"> <span class="sr-only">Next</span> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="bottom-banner-img1">
+                                <a href="#">
+                                    <img src="http://htmldemo.themessoft.com/freshia/version1/images/ads-02.jpg" alt="bottom banner">
+
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="bottom-banner-img1">
+                                <a href="#">
+                                    <img src="http://htmldemo.themessoft.com/freshia/version1/images/ads-03.jpg" alt="bottom banner"><span class="banner-overly"></span>
+
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12">
+                            <div class="bottom-banner-img1 last">
+                                <a href="#">
+                                    <img src="http://htmldemo.themessoft.com/freshia/version1/images/ads-05.jpg" alt="bottom banner"> <span class="banner-overly"></span>
+                                    <div class="bottom-img-info last">
+                                        <h3>up to <span>25%</span> off</h3>
+                                        <h6>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</h6>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- featured Slider -->
+    <section class="featured-pro">
+        <div class="container">
+            <div class="slider-items-products">
+                <div class="featured-block">
+                    <div id="featured-slider" class="product-flexslider hidden-buttons">
+                        <div class="home-block-inner">
+                            <div class="block-title">
+                                <h2>Featured</h2>
+                            </div>
+                            <div class="pretext">
+                                <a title="Retis lapen casen" href="#"> <img alt="Retis lapen casen" src="http://htmldemo.themessoft.com/freshia/version1/images/offer-banner1.jpg"> </a>
+                                <div class="offer-text">Use Promo Fresh123</div>
+                            </div>
+                            <a href="http://htmldemo.themessoft.com/freshia/version1/grid.html" class="view_more_bnt">View All</a>
+                        </div>
+                        <div class="slider-items slider-width-col4 products-grid block-content">
+                            <div class="item">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> <img alt="Retis lapen casen" src="http://htmldemo.themessoft.com/freshia/version1/products-images/product8.jpg"> </a>
+                                            <div class="new-label new-top-right">new</div>
+                                            <div class="box-hover">
+                                                <ul class="add-to-links">
+                                                    <li><a class="link-quickview" href="http://htmldemo.themessoft.com/freshia/version1/quick_view.html">Quick View</a> </li>
+                                                    <li><a class="link-wishlist" href="http://htmldemo.themessoft.com/freshia/version1/wishlist.html">Wishlist</a> </li>
+                                                    <li><a class="link-compare" href="http://htmldemo.themessoft.com/freshia/version1/compare.html">Compare</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"> <a title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> Retis lapen casen </a> </div>
+                                            <div class="rating">
+                                                <div class="ratings">
+                                                    <div class="rating-box">
+                                                        <div style="width:80%" class="rating"></div>
+                                                    </div>
+                                                    <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                </div>
+                                            </div>
+                                            <div class="item-content">
+                                                <div class="item-price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span> </div>
+                                                </div>
+                                                <div class="action">
+                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item -->
+                            <div class="item">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> <img alt="Retis lapen casen" src="http://htmldemo.themessoft.com/freshia/version1/products-images/product7.jpg"> </a>
+                                            <div class="box-hover">
+                                                <ul class="add-to-links">
+                                                    <li><a class="link-quickview" href="http://htmldemo.themessoft.com/freshia/version1/quick_view.html">Quick View</a> </li>
+                                                    <li><a class="link-wishlist" href="http://htmldemo.themessoft.com/freshia/version1/wishlist.html">Wishlist</a> </li>
+                                                    <li><a class="link-compare" href="http://htmldemo.themessoft.com/freshia/version1/compare.html">Compare</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"> <a title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> Retis lapen casen </a> </div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$235.00</span> </span> </div>
+                                                </div>
+                                                <div class="action">
+                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Item -->
+                            <!-- Item -->
+                            <div class="item">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> <img alt="Retis lapen casen" src="http://htmldemo.themessoft.com/freshia/version1/products-images/product6.jpg"> </a>
+                                            <div class="box-hover">
+                                                <ul class="add-to-links">
+                                                    <li><a class="link-quickview" href="http://htmldemo.themessoft.com/freshia/version1/quick_view.html">Quick View</a> </li>
+                                                    <li><a class="link-wishlist" href="http://htmldemo.themessoft.com/freshia/version1/wishlist.html">Wishlist</a> </li>
+                                                    <li><a class="link-compare" href="http://htmldemo.themessoft.com/freshia/version1/compare.html">Compare</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"> <a title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> Retis lapen casen </a> </div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$325.00</span> </span> </div>
+                                                </div>
+                                                <div class="action">
+                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Item -->
+
+                            <div class="item">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> <img alt="Retis lapen casen" src="http://htmldemo.themessoft.com/freshia/version1/products-images/product4.jpg"> </a>
+                                            <div class="new-label new-top-left">new</div>
+                                            <div class="box-hover">
+                                                <ul class="add-to-links">
+                                                    <li><a class="link-quickview" href="http://htmldemo.themessoft.com/freshia/version1/quick_view.html">Quick View</a> </li>
+                                                    <li><a class="link-wishlist" href="http://htmldemo.themessoft.com/freshia/version1/wishlist.html">Wishlist</a> </li>
+                                                    <li><a class="link-compare" href="http://htmldemo.themessoft.com/freshia/version1/compare.html">Compare</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"> <a title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> Retis lapen casen </a> </div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$425.00</span> </span> </div>
+                                                </div>
+                                                <div class="action">
+                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item -->
+                            <div class="item">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> <img alt="Retis lapen casen" src="http://htmldemo.themessoft.com/freshia/version1/products-images/product5.jpg"> </a>
+                                            <div class="box-hover">
+                                                <ul class="add-to-links">
+                                                    <li><a class="link-quickview" href="http://htmldemo.themessoft.com/freshia/version1/quick_view.html">Quick View</a> </li>
+                                                    <li><a class="link-wishlist" href="http://htmldemo.themessoft.com/freshia/version1/wishlist.html">Wishlist</a> </li>
+                                                    <li><a class="link-compare" href="http://htmldemo.themessoft.com/freshia/version1/compare.html">Compare</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"> <a title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> Retis lapen casen </a> </div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$525.00</span> </span> </div>
+                                                </div>
+                                                <div class="action">
+                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Item -->
+                            <div class="item">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> <img alt="Retis lapen casen" src="http://htmldemo.themessoft.com/freshia/version1/products-images/product6.jpg"> </a>
+                                            <div class="box-hover">
+                                                <ul class="add-to-links">
+                                                    <li><a class="link-quickview" href="http://htmldemo.themessoft.com/freshia/version1/quick_view.html">Quick View</a> </li>
+                                                    <li><a class="link-wishlist" href="http://htmldemo.themessoft.com/freshia/version1/wishlist.html">Wishlist</a> </li>
+                                                    <li><a class="link-compare" href="http://htmldemo.themessoft.com/freshia/version1/compare.html">Compare</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"> <a title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> Retis lapen casen </a> </div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$225.00</span> </span> </div>
+                                                </div>
+                                                <div class="action">
+                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item -->
+                            <div class="item">
+                                <div class="item-inner">
+                                    <div class="item-img">
+                                        <div class="item-img-info">
+                                            <a class="product-image" title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> <img alt="Retis lapen casen" src="http://htmldemo.themessoft.com/freshia/version1/products-images/product7.jpg"> </a>
+                                            <div class="box-hover">
+                                                <ul class="add-to-links">
+                                                    <li><a class="link-quickview" href="http://htmldemo.themessoft.com/freshia/version1/quick_view.html">Quick View</a> </li>
+                                                    <li><a class="link-wishlist" href="http://htmldemo.themessoft.com/freshia/version1/wishlist.html">Wishlist</a> </li>
+                                                    <li><a class="link-compare" href="http://htmldemo.themessoft.com/freshia/version1/compare.html">Compare</a> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info-inner">
+                                            <div class="item-title"> <a title="Retis lapen casen" href="http://htmldemo.themessoft.com/freshia/version1/product_detail.html"> Retis lapen casen </a> </div>
+                                            <div class="item-content">
+                                                <div class="rating">
+                                                    <div class="ratings">
+                                                        <div class="rating-box">
+                                                            <div style="width:80%" class="rating"></div>
+                                                        </div>
+                                                        <p class="rating-links"> <a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="item-price">
+                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$185.00</span> </span> </div>
+                                                </div>
+                                                <div class="action">
+                                                    <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Item -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End featured Slider -->
+    <!-- Latest Blog -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="blog-outer-container">
+                    <div class="new_title">
+                        <h2>Latest Blog</h2>
+                    </div>
+                    <div class="blog-inner">
+                        <div class="col-lg-6 col-md-6 col-sm-6 blog-preview_item">
+                            <div class="entry-thumb image-hover2"> <a href="http://htmldemo.themessoft.com/freshia/version1/blog_single_post.html"> <img alt="Blog" src="http://htmldemo.themessoft.com/freshia/version1/images/blog-img1.jpg"> </a> </div>
+                            <div class="blog-preview_info">
+                                <ul class="post-meta">
+                                    <li><i class="fa fa-user"></i>posted by <a href="#">admin</a> </li>
+                                    <li><i class="fa fa-comments"></i><a href="#">8 comments</a> </li>
+                                    <li><i class="fa fa-calendar"></i>2018-02-24 12:25:18</li>
+                                </ul>
+                                <h4 class="blog-preview_title"><a href="http://htmldemo.themessoft.com/freshia/version1/blog_single_post.html">Standard blog post with photo</a></h4>
+                                <div class="blog-preview_desc">Lid est laborum dolo rumes fugats untras. Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo minima rerums unsers sadips.</div>
+                                <a class="blog-preview_btn" href="http://htmldemo.themessoft.com/freshia/version1/blog_single_post.html">READ MORE</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 blog-preview_item">
+                            <div class="entry-thumb image-hover2"> <a href="http://htmldemo.themessoft.com/freshia/version1/blog_single_post.html"> <img alt="Blog" src="http://htmldemo.themessoft.com/freshia/version1/images/blog-img2.jpg"> </a> </div>
+                            <div class="blog-preview_info">
+                                <ul class="post-meta">
+                                    <li><i class="fa fa-user"></i>posted by <a href="#">admin</a> </li>
+                                    <li><i class="fa fa-comments"></i><a href="#">4 comments</a> </li>
+                                    <li><i class="fa fa-calendar"></i>2018-01-07 09:05:49</li>
+                                </ul>
+                                <h4 class="blog-preview_title"><a href="http://htmldemo.themessoft.com/freshia/version1/blog_single_post.html">Standard blog post with photo</a></h4>
+                                <div class="blog-preview_desc">Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros.</div>
+                                <a class="blog-preview_btn" href="http://htmldemo.themessoft.com/freshia/version1/blog_single_post.html">READ MORE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Latest Blog -->
+    <!-- Footer -->
+
+</div>
+<script>
+   
+    function OrderSave(Event) {
+        console.log("kki");
+        var buttonID = $(Event).attr('OOID');
+        var RateValue = parseFloat($("#Prize" + buttonID).text());
+        var Cars = parseFloat($("#cars" + buttonID).val());
+        var Name = $("#ItemName" + buttonID).text();
+        var Username = $("#RagisterID").text();
+        $.ajax({
+            type: 'GET',
+            url: "/OrderItems/SaveItem?buttonID=" + buttonID + "&RateValue=" + RateValue + "&Cars=" + Cars + "&Name=" + Name + "&Username=" + Username,
+            success: function (data) {
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
+                $('#waiting').hide();
+            }
+        });
+    }
+    setTimeout(function () {
+        NullValue();
+    }, 1000);
+    function NullValue() {
+        var name = $("#RagisterID").text();
+        if (name == 0) {
+                $('#exampleModalCenter').modal('show', { backdrop: 'static', keyboard: false });
+        } else {
+            $('#exampleModalCenter').modal('hide');
+
+        }
+    }
+
+    function Save() {
+        console.log("sdf");
+        var Mobile = $("#mobile").val();
+        var Name = $("#Name").val();
+        var City = $("#City").val();
+        var Address = $("#address").val();
+        $.ajax({
+            type: 'GET',
+            url: "/Ragistation/RagisterSave?Mobile=" + Mobile + "&Name=" + Name + "&City=" + City + "&Address=" + Address,
+            success: function (data) {
+                $('#exampleModalCenter').modal('hide');
+            },
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
+                $('#waiting').hide();
+            }
+        });
+    }
+</script>
+

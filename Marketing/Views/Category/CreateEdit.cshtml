@@ -1,0 +1,29 @@
+﻿@model Marketing.Models.Category
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card">
+    <div class=" card-header">
+        <h4 class=" text-center text-danger"><b>Category</b></h4>
+        <hr />
+    </div>
+    <div class=" card-body">
+        @using (Html.BeginForm("CreateEdit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(model => model.CatID)
+            <div class="row">
+                <div class="col-sm-4 mx-auto">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label  " })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-sm-1">
+                    @Html.Label("Save", new { @class = "text-white" })
+                    <input type="submit" value="Save" class="btn btn-success" />
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@model Marketing.Models.Quantity
+@using  Marketing.Models
+@{
+    List<Items> listcategory = Items.GetAll();
+    List<Category> listcat  = Category.GetAll();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class=" card">
+    <div class="card-header">
+        <h4 class=" text-center text-danger"><b>Quantity</b></h4>
+        <hr />
+    </div>
+    <div class=" card-body">
+
+        @using (Html.BeginForm("CreateEdit","Quantity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="row">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.QunID)
+            <div class="col-sm-4">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label  " })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-4">
+                @Html.Label("Category")
+                @Html.DropDownListFor(model => model.CatID, new SelectList(listcat, "CatID", "Name", Model.CatID), "Select Category", new { @class = "form-control" , required="required",onchange= "getItemName(this)" })
+                @Html.ValidationMessageFor(model => model.CatID, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-sm-4">
+                @Html.Label("Items")
+                @Html.DropDownListFor(model => model.ItemID, new SelectList(listcategory, "ItemID", "Name", Model.ItemID), "Select Items", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ItemID, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="col-sm-1">
+                @Html.Label("SaVE", new { @class = "text-white" })
+                <input type="submit" value="Create" class="btn btn-success" />
+
+            </div>
+        </div>
+        }
+    </div>
+</div>
+ 

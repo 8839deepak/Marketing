@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login | iT-Helper</title>
+    <!-- CSS -->
+    <link rel="icon" type="image/png" href="Images/iT-helperlogo/it-helper-logo.png">
+    <link href="~/Assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/Assets/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/MyStyle.css" rel="stylesheet" />
+</head>
+<body onload="$('#waiting').hide();" class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!--Waiting Spinner-->
+    <div id="waiting"><div id="pwaiting"><i class="fa fa-cog fa-spin fa-3x fa-fw text-success"></i></div></div>
+    <div id="dialogoverlay" class="fixed-top" style="display:none" onclick="Harish.ok()">
+        <div class="card text-center" style="max-width:300px;border:1px solid #733e23" id="dialogbox">
+            <div class="card-header p-3" style="background-color:#000000;"><h5 class="card-title mb-0 text-white" id="dialogboxbody"> </h5> </div>
+        </div>
+    </div>
+    <!--End Waiting Spinner-->
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark navbar-grey-dark">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                </li>
+
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a style="font-size: 27px;padding-top: 0px;" class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-power-off mr-1" style="font-size:27px;"> </i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" style="background-color:#24c9d6;">
+                        <a href="#" class="dropdown-item"><i class="far fa-user-circle mr-1"></i> login user</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/Home/LogOut" class="dropdown-item dropdown-footer"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="" class="brand-link">
+                <img src="~/Assets/it-helper-logo.png" alt="iT-Helper Logo" class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-bold">iT-Helper</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Dashboard
+                                    <span class="right badge badge-danger">New</span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    More Options
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">3</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/Category/Index" class="nav-link">
+                                        <i class="nav-icon far fa-circle text-warning"></i>
+                                        <p>Category</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Items/Index" class="nav-link">
+                                        <i class="nav-icon far fa-circle text-warning"></i>
+                                        <p>Items</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Ragistation/Index" class="nav-link">
+                                        <i class="nav-icon far fa-circle text-warning"></i>
+                                        <p>User List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Quantity/Index" class="nav-link">
+                                        <i class="nav-icon far fa-circle text-warning"></i>
+                                        <p>Quantity List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-outdent"></i>
+                                <p>
+                                   Order List
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/Order/NewOrderIndex" class="nav-link">
+                                        <i class="nav-icon far fa-circle text-warning"></i>
+                                        <p>Report</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Order/Index?dateTime=@DateTime.Today" class="nav-link">
+                                        <i class="nav-icon far fa-circle text-warning"></i>
+                                        <p>OrderList</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </nav>
+
+                <!-- /.sidebar-menu -->
+            </div>
+
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            <!-- Main content -->
+            <section class="content p-0 pt-2">
+                <div class="container-fluid" id="DynamicDiv">
+                    <!-- start DynamicDiv-->
+                    <!-------------------------------------------------------------------------------------------->
+
+                    @RenderBody()
+
+                    <!-- Content Wrapper. Contains page content -->
+                    <!-- /.content-wrapper -->
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- ./wrapper -->
+    <!-- JS -->
+    <script src="~/Assets/bootstrap-4.3.1-dist/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Assets/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+   @* <script src="~/Assets/MyScript.js"></script>*@
+
+    <!-- admin ~/Assets -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/Assets/AdminAssets/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="~/Assets/AdminAssets/adminlte.min.css">
+    <script src="~/Assets/AdminAssets/jquery.overlayScrollbars.min.js"></script>
+    <script src="~/Assets/AdminAssets/adminlte.min.js"></script>
+    <!-- //admin ~/Assets -->
+
+</body>
+</html>
+<style>
+    html {
+        background-color: #f4f6f9;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#Tbl').DataTable({
+            "scrollY": "250px",
+            "scrollCollapse": true,
+            "paging": false,
+            "sScrollX": "100%",
+        });
+    });
+</script>
