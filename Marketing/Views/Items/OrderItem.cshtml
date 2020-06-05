@@ -346,23 +346,14 @@
         var Prize = parseFloat($("#Prize" + ItemID).text());
         var Qty = parseFloat($("#Qty" + ItemID).text());
         if (type == 1) {
-            Inputvalue++;
+           
+            $("#" + ItemID).val(++Inputvalue);
         }
         $.ajax({
             type: 'GET',
             url: "/Items/UpdateQty?ItemID=" + ItemID + "&Inputvalue=" + Inputvalue + "&Prize=" + Prize + "&Qty=" + Qty,
             success: function (data) {
-                var Jobj = JSON.parse(data);
-                if (Jobj.Status == 400) {
-                    $("#Rate" + buttonID).val(Jobj.Rate);
-                    alert(Jobj.MSG);
-                    return;
-                }
-                else {
-                    $("#" + OIID).val(Cnt);
-                    $("#IntPrice" + OIID).text(Jobj.MSG);
-                }
-                // not();
+                location.reload(true);
             },
             error: function (jqXhr, textStatus, errorMessage) { // error callback
                 $('#waiting').hide();

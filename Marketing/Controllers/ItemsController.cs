@@ -54,14 +54,17 @@ namespace Marketing.Controllers
         }
          public ActionResult RemoveQty(int ItemID)
         {
+            int UserID = (int)System.Web.HttpContext.Current.Session["RagisID"];
             int id = ItemID;
             var list = Session["Cart"] as List<Cart>;
+            list = list.FindAll(x => x.ItemID == id);
             list.RemoveAll(x => x.ItemID == ItemID);
              
-            return RedirectToAction("OrderItem");
+            return RedirectToAction("OrderItem", new { ItemID = id, UserID = UserID });
         }
         public ActionResult UpdateQty(int ItemID, int Inputvalue, int Prize, int Qty)
         {
+            int UserID = (int)System.Web.HttpContext.Current.Session["RagisID"];
             int Id = ItemID;
             int Count = Inputvalue;
             int UnitPrize = Prize;
@@ -74,7 +77,7 @@ namespace Marketing.Controllers
                 ObjOrderitems.Save();
 
             }
-            return RedirectToAction("OrderItem");
+            return RedirectToAction("OrderItem", new { ItemID=Id  ,UserID=UserID });
         }
     }
 }
