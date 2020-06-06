@@ -28,7 +28,17 @@
 </head>
 <body class="cms-index-index cms-home-page">
     @RenderBody()
-    
+    <!--Warning Model-->
+    <div class="modal fade bd-example-modal-sm pr-0" id="WarningModel" tabindex="-1" style="z-index:100000" role="dialog" aria-labelledby="WarningModel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content border border-warning text-center">
+                <div class="modal-header pt-2 pb-2 bg-secondary " style="text-align:center !important;">
+                    <h5 class="modal-title w-100" style="color:#fffa08;"> <i class="fas fa-exclamation-triangle"></i> Warning</h5>
+                </div><div class="modal-body text-center"></div>
+            </div>
+        </div>
+    </div>
+    <!--End Warning Model-->
     <script src="~/Assets/WebAssets/js/jquery.min.js"></script>
     <script src="~/Assets/WebAssets/js/bootstrap.min.js"></script>
     <script src="~/Assets/WebAssets/js/revslider.js"></script>

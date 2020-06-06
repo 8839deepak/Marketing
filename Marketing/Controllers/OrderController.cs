@@ -22,21 +22,6 @@ namespace Marketing.Controllers
         {
             return View();
         }
-        //public ActionResult SaveOrderItem(int ItemID,int Count,string Name,int Prize,int TotalRate,int Qty )
-        //{
-        //    Orders orders =  new Orders();
-        //        orders.ItemID = ItemID;
-        //        orders.ProductName = Name;
-        //        orders.ProductPrize = Prize;
-        //        orders.Qty = Qty.ToString();
-        //        orders.TotalQty = Count;
-        //        orders.PrizeTotal = TotalRate;
-        //        orders.RagisID = 1;
-        //        orders.Save();
-        //    if(orders.OID>0)
-        //    return RedirectToAction("ItemLoadFunction", "Home");
-        //    return RedirectToAction("ItemLoadFunction", "Home");
-        //}
         [HttpPost]
         public ActionResult CreateEdit([System.Web.Http.FromBody] Orders ObjItems)
         {
@@ -48,8 +33,7 @@ namespace Marketing.Controllers
                 ObjItem.OID = order.OID;
                 order.Save();
             }
-            return  RedirectToAction("ItemLoadFunction","Home");
-
+            return Json(new { url = "/Home/ItemLoadFunction" });
         }
     }
 }
