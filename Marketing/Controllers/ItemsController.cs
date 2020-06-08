@@ -56,11 +56,12 @@ namespace Marketing.Controllers
         {
             int UserID = (int)System.Web.HttpContext.Current.Session["RagisID"];
             int id = ItemID;
-            var list = Session["Cart"] as List<Cart>;
-            list = list.FindAll(x => x.ItemID == id);
-            list.RemoveAll(x => x.ItemID == ItemID);
-             
-            return RedirectToAction("OrderItem", new { ItemID = id, UserID = UserID });
+            List<OrderItems> orderItems = OrderItems.GetAll();
+            orderItems = orderItems.FindAll(x=>x.RagisID== UserID);
+            //var list = Session["Cart"] as List<Cart>;
+            //    list.RemoveAll(x => x.ItemID == ItemID);
+            orderItems.RemoveAll(x => x.ItemID == ItemID);
+            return RedirectToAction("OrderItem");
         }
         public ActionResult UpdateQty(int ItemID, int Inputvalue, int Prize, int Qty)
         {

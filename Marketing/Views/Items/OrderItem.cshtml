@@ -300,13 +300,20 @@
 <!-- Mirrored from htmldemo.themessoft.com/freshia/version1/shopping_cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 May 2020 07:21:55 GMT -->
 </html>
 <script>
+    var listorderItem = [];
     function removeitemqty(Event) {
+        console.log("sd");
         var ID = $(Event).attr('OOID');
+        var TotalPrize = $("#totalsoppingprize").text();
+        var Prize = parseFloat($("#Prize" + ID).text());
+        if (ID > 0) {
+            var cc = TotalPrize - Prize;
+        }
         $.ajax({
             type: 'GET',
             url: "/Items/RemoveQty?ItemID=" + ID,
             success: function (data) {
-
+                $("#totalsoppingprize").val(data.cc);
             }
         });
     }
