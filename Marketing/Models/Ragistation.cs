@@ -13,7 +13,7 @@ namespace Marketing.Models
         public string Mobile { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-        public System.DateTime CreateDate { get; set; }
+        public DateTime Create_Date { get; set; }
         public int Save()
         {
             int Row = 0;
@@ -23,24 +23,15 @@ namespace Marketing.Models
             {
                 string Quary = "";
                 if (this.RagisID == 0)
-                    Quary = "Insert Into Ragistation values (@Name,@Mobile,@Address,@City,@CreateDate)";
+                    Quary = "Insert Into Ragistation values (@Name,@Mobile,@Address,@City,@Create_Date)";
                 cmd = new SqlCommand(Quary, dBCon.Con);
                 cmd.Parameters.AddWithValue("@RagisID", this.RagisID);
                 cmd.Parameters.AddWithValue("@Name", this.Name);
                 cmd.Parameters.AddWithValue("@Mobile", this.Mobile);
                 cmd.Parameters.AddWithValue("@Address", this.Address);
                 cmd.Parameters.AddWithValue("@City", this.City);
-                cmd.Parameters.AddWithValue("@CreateDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@Create_Date", DateTime.Now);
                 Row = cmd.ExecuteNonQuery();
-                //if (this.RagisID == 0)
-                //{
-                //    Row = Convert.ToInt32(cmd.ExecuteScalar());
-                //    this.RagisID = Row;
-                //}
-                //else
-                //{
-                //    Row = cmd.ExecuteNonQuery();
-                //}
             }
             catch (Exception e) { e.ToString(); }
             finally { cmd.Dispose(); dBCon.Con.Close(); }
@@ -65,7 +56,8 @@ namespace Marketing.Models
                         Name = SDR.GetString(1),
                         Mobile = SDR.GetString(2),
                         Address = SDR.GetString(3),
-                        City = SDR.GetString(4)
+                        City = SDR.GetString(4),
+                        Create_Date=SDR.GetDateTime(5)
                     });
 
                 }

@@ -27,7 +27,7 @@ namespace Marketing.Controllers
             int d = ragistation.Save();
             if(d!=0)
             {
-                getsession(ragistation.CreateDate);
+                getsession(ragistation.Create_Date);
                
 
             }
@@ -36,7 +36,7 @@ namespace Marketing.Controllers
         public ActionResult getsession(DateTime Createdate)
         {
             List<Ragistation> listragistation = new Ragistation().GetAll();
-            listragistation = listragistation.FindAll(x=>x.CreateDate==Createdate);
+            listragistation = listragistation.FindAll(x=>x.Create_Date==Createdate);
             foreach(var hh in listragistation)
             {
               var getragistation = listragistation.FindAll(x=>x.RagisID==hh.RagisID);

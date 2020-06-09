@@ -239,31 +239,27 @@
                                             </colgroup>
                                             <tfoot>
                                                 @{int amt = 0;
-                                                        int totalprize = 0;
+                                                    int totalprize = 0;
 
-                                                        int UserId = int.Parse(Session["RagisID"].ToString());
-                                                        List<OrderItems> userorderitems = OrderItems.GetAll();
-                                                        OrderItems ObjORDER = userorderitems.Find(x => x.ItemID == ItemID);
-                                                        var sakalaka = userorderitems.FindAll(x => x.RagisID == UserId);
-                                                        //if (ObjORDER.ItemID)
-                                                        //{
+                                                    //int UserId = int.Parse(Session["RagisID"].ToString());
+                                                    //List<OrderItems> userorderitems = OrderItems.GetAll();
+                                                    //OrderItems ObjORDER = userorderitems.Find(x => x.ItemID == ItemID);
+                                                    //var sakalaka = userorderitems.FindAll(x => x.RagisID == UserId);
+                                                    ////if (ObjORDER.ItemID)
+                                                    ////{
 
-                                                        //    for (int i = 0; i < sakalaka.Count; i++)
-                                                        //    {
-                                                        //        amt += totalprize - userorderitems[i].Prize;
-                                                        //    }
-                                                        //}
-                                                        //else
-                                                        //{
-                                                        for (int i = 0; i < sakalaka.Count; i++)
-                                                        {
-                                                            amt += userorderitems[i].QTY * userorderitems[i].Count;
-                                                        }
-                                                    
-
+                                                    ////    for (int i = 0; i < sakalaka.Count; i++)
+                                                    ////    {
+                                                    ////        amt += totalprize - userorderitems[i].Prize;
+                                                    ////    }
+                                                    ////}
+                                                    ////else
+                                                    ////{
+                                                    //for (int i = 0; i < sakalaka.Count; i++)
+                                                    //{
+                                                    //    amt += userorderitems[i].Count;
+                                                    //}
                                                     totalprize += amt;
-
-
                                                 }
                                                 <tr>
                                                     <td colspan="1" class="a-left" style=""><strong>Grand Total</strong></td>
@@ -300,22 +296,30 @@
 <!-- Mirrored from htmldemo.themessoft.com/freshia/version1/shopping_cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 May 2020 07:21:55 GMT -->
 </html>
 <script>
+    onloadgetvalue();
     var listorderItem = [];
+    function onloadgetvalue() {
+        var total = 0;
+        $('#shopping-cart-table tbody tr').each(function () {
+            console.log("sad");
+            var value = parseInt($(this).find("td:eq(6)").text());
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+        document.getElementById("totalsoppingprize").innerHTML = total;
+    }
     function removeitemqty(Event) {
         console.log("sd");
         var ID = $(Event).attr('OOID');
-        var TotalPrize = $("#totalsoppingprize").text();
-        var Prize = parseFloat($("#Prize" + ID).text());
-        if (ID > 0) {
-            var cc = TotalPrize - Prize;
-        }
         $.ajax({
             type: 'GET',
             url: "/Items/RemoveQty?ItemID=" + ID,
             success: function (data) {
-                $("#totalsoppingprize").val(data.cc);
+               
             }
         });
+        location.reload(true);
     }
     function MinusItemQty(Event, type) {
         var ItemID = $(Event).attr('OOID');

@@ -31,13 +31,6 @@ namespace Marketing.Models
                 }
                 cmd = new SqlCommand(Quary, dBCon.Con);
                 cmd.Parameters.AddWithValue("@OID", this.OID);
-                //cmd.Parameters.AddWithValue("@ProductName", this.ProductName);
-                //cmd.Parameters.AddWithValue("@ProductPrize", this.ProductPrize);
-                //cmd.Parameters.AddWithValue("@Qty", this.Qty);
-                //cmd.Parameters.AddWithValue("@TotalQty", this.TotalQty);
-                //cmd.Parameters.AddWithValue("@PrizeTotal", this.PrizeTotal);
-                //cmd.Parameters.AddWithValue("@RagisID", this.RagisID);
-                //cmd.Parameters.AddWithValue("@Create_Date", DateTime.Now );
                 if (this.OID == 0)
                 {
                     Row = Convert.ToInt32(cmd.ExecuteScalar());
@@ -68,13 +61,6 @@ namespace Marketing.Models
                     listItem.Add(new Orders()
                     {
                         OID = SDR.GetInt32(0),
-                        //ProductName = SDR.GetString(1),
-                        //ProductPrize = SDR.GetInt32(2),
-                        //Qty = SDR.GetString(3),
-                        //TotalQty = SDR.GetInt32(4),
-                        //PrizeTotal = SDR.GetInt32(5),
-                        //RagisID = SDR.GetInt32(6),
-                        //Create_Date = SDR.GetDateTime(7),
                     });
 
                 }
