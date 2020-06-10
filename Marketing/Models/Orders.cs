@@ -16,7 +16,7 @@ namespace Marketing.Models
         //public int TotalQty { get; set; }
         //public int PrizeTotal { get; set; }
         //public int RagisID { get; set; }
-        //public DateTime Create_Date { get; set; }
+         public  DateTime Create_Date { get; set; }
         public int Save()
         {
             int Row = 0;
@@ -27,10 +27,11 @@ namespace Marketing.Models
                 string Quary = "";
                 if (this.OID == 0)
                 {
-                    Quary = "insert into Orders DEFAULT VALUES";
+                    Quary = "insert into Orders  values(@Create_Date)";
                 }
                 cmd = new SqlCommand(Quary, dBCon.Con);
                 cmd.Parameters.AddWithValue("@OID", this.OID);
+                cmd.Parameters.AddWithValue("@Create_Date", DateTime.Now);
                     Row = cmd.ExecuteNonQuery();
             }
             catch (Exception e) { e.ToString(); }
@@ -53,6 +54,7 @@ namespace Marketing.Models
                     listItem.Add(new Orders()
                     {
                         OID = SDR.GetInt32(0),
+                        Create_Date = SDR.GetDateTime(1),
                     });
 
                 }

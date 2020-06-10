@@ -26,17 +26,38 @@ namespace Marketing.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateEdit([System.Web.Http.FromBody] Orders ObjItems)
+        public ActionResult CreateEdit([System.Web.Http.FromBody] Orders ObjItems )
         {
             Orders ObjItem = ObjItems;
-            ObjItem.Save();
+            //int d = ObjItem.Save();
+            var dateTime = DateTime.Today;
+            var myDate = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+            int d = ObjItem.Save();
+            List<Orders> orderlist = new Orders().GetAll();
+            Orders Objorder = orderlist.Find(x => x.Create_Date == myDate);
+            if (d!=0)
+            {
+                getOrdersession(Objorder.Create_Date);
+            }
+            int ID = int.Parse(Session["OID"].ToString());
             List<NewOrders> listorder =  ObjItem.NewOrders;
             foreach(var order in listorder )
             {
-                ObjItem.OID = order.OID;
+               order.OID = ID ;
                 order.Save();
             }
             return Json(new { url = "/Home/ItemLoadFunction" });
+        }
+        public ActionResult getOrdersession(System.DateTime Createdate)
+        {
+            List<Orders> listOrders = new Orders().GetAll();
+            listOrders = listOrders.FindAll(x => x.Create_Date == Createdate);
+            foreach (var hh in listOrders)
+            {
+                var getragistation = listOrders.FindAll(x => x.OID == hh.OID);
+                Session["OID"] = hh.OID;
+            }
+            return View(listOrders);
         }
     }
 }

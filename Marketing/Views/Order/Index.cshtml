@@ -8,10 +8,18 @@
     List<NewOrders> listnewOrder = ObjOrder.GetAll();
     List<OrderItems> listorderitems = OrderItems.GetAll();
     List<Orders> listorder = new Orders().GetAll();
-    var dateTime = DateTime.Today;
-    var myDate = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
-    var  listnew  = listnewOrder.FindAll(x => x.Create_Date == myDate);
-    listnewOrder = listnew.FindAll(x => x.Create_Date == myDate);
+    foreach(var ordersitem in listorder)
+    {
+        //var dateTime = DateTime.Today;
+        //var myDate = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+        var yrt = listnewOrder.FindAll(x => x.OID == ordersitem.OID);
+        foreach(var ss in yrt)
+        {
+            listnewOrder = listnewOrder.FindAll(x => x.RagisID == ss.RagisID);
+
+        }
+    }
+
 
     }
  
