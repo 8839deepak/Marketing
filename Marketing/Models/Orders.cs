@@ -27,19 +27,11 @@ namespace Marketing.Models
                 string Quary = "";
                 if (this.OID == 0)
                 {
-                    Quary = "insert into Orders values(@OID);";
+                    Quary = "insert into Orders DEFAULT VALUES";
                 }
                 cmd = new SqlCommand(Quary, dBCon.Con);
                 cmd.Parameters.AddWithValue("@OID", this.OID);
-                if (this.OID == 0)
-                {
-                    Row = Convert.ToInt32(cmd.ExecuteScalar());
-                    this.OID = Row;
-                }
-                else
-                {
                     Row = cmd.ExecuteNonQuery();
-                }
             }
             catch (Exception e) { e.ToString(); }
             finally { cmd.Dispose(); dBCon.Con.Close(); }
@@ -103,15 +95,7 @@ namespace Marketing.Models
                 cmd.Parameters.AddWithValue("@PrizeTotal", this.PrizeTotal);
                 cmd.Parameters.AddWithValue("@RagisID", this.RagisID);
                 cmd.Parameters.AddWithValue("@Create_Date", DateTime.Now);
-                if (this.NID == 0)
-                {
-                    Row = Convert.ToInt32(cmd.ExecuteScalar());
-                    this.NID = Row;
-                }
-                else
-                {
                     Row = cmd.ExecuteNonQuery();
-                }
             }
             catch (Exception e) { e.ToString(); }
             finally { cmd.Dispose(); dBCon.Con.Close(); }

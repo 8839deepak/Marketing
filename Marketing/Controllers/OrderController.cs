@@ -18,11 +18,7 @@ namespace Marketing.Controllers
             List<NewOrders> listneworder = new NewOrders().GetAll();
             var myDate = new DateTime(dateTime.Year, dateTime.Day, dateTime.Month);
             ragistations = ragistations.FindAll(x => x.Create_Date == myDate);
-              foreach(var ff in ragistations)
-            {
-                listneworder = listneworder.FindAll(x => x.Create_Date == ff.Create_Date);
-
-            }
+           
             return View(listneworder);
         }
         public ActionResult NewOrderIndex()

@@ -7,22 +7,29 @@
     NewOrders ObjOrder = new NewOrders();
     List<NewOrders> listnewOrder = ObjOrder.GetAll();
     List<OrderItems> listorderitems = OrderItems.GetAll();
+    List<Orders> listorder = new Orders().GetAll();
+    var dateTime = DateTime.Today;
+    var myDate = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+    var  listnew  = listnewOrder.FindAll(x => x.Create_Date == myDate);
+    listnewOrder = listnew.FindAll(x => x.Create_Date == myDate);
+
     }
  
 <div class="card">
     <div class="card-header">
         <h5 class="text-center text-danger"><b>Order List</b></h5>
     </div>
-    @foreach (var item in Model)
-    {
-        var neworder = new NewOrders().GetAll();
-        var neworder1 = new NewOrders().GetAll();
-        var neworder2 = new NewOrders().GetAll();
-        var bd = listragistation.FindAll(x => x.RagisID == item.RagisID);
-        listragistation = bd.FindAll(x => x.RagisID == item.RagisID);
-        var rg = neworder.FindAll(x => x.RagisID == item.RagisID);
-        neworder = rg.FindAll(x => x.RagisID == item.RagisID);
-        <div class="card-body">
+   
+    <div class="card-body">
+        @foreach (var item in listnewOrder)
+        {
+            var neworder = new NewOrders().GetAll();
+            var neworder1 = new NewOrders().GetAll();
+            var neworder2 = new NewOrders().GetAll();
+            var bd = listragistation.FindAll(x => x.RagisID == item.RagisID);
+            listragistation = bd.FindAll(x => x.RagisID == item.RagisID);
+            var rg = neworder.FindAll(x => x.OID == item.OID);
+            neworder = rg.FindAll(x => x.OID == item.OID);
             <div class="row w-100">
                 <div class="row w-100 pt-3 pb-2" style="border:groove;border-color:#a8f56d">
                     <div class=" col-sm-4">
@@ -100,28 +107,31 @@
                     <div class="col-sm-2">
                         @Html.Label("Total Prize")<br />
                         <ul>
-                            
-                                <li>
-                                    @item.PrizeTotal
-                                </li>
-                            
+
+                            <li>
+                                @item.PrizeTotal
+                            </li>
+
                         </ul>
                     </div>
                     <div class="col-sm-2">
                         @Html.Label("Order Date")<br />
                         <ul>
-                            @*@foreach (var jj in neworder1)
-                            {*@
-                                <li>
-                                    @item.Create_Date
-                                </li>
-                            @*}*@
+                            
+                            <li>
+                                @item.Create_Date
+                            </li>
+                           
                         </ul>
                     </div>
                 </div>
+                 
+
             </div>
-        </div>
-    }
+
+        }
+    </div>
+    
 </div>
 
 

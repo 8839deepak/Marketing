@@ -22,8 +22,15 @@ namespace Marketing.Controllers
                 return RedirectToAction("Index");
             return RedirectToAction("Index");
         }/*string Mobile, string Name, string City, string Address*/
-        public ActionResult RagisterSave(Ragistation ragistation )
+        [HttpPost]
+        public ActionResult RagisterSave(string Mobile, string Name, string City, string Address,DateTime today)
         {
+            Ragistation ragistation = new Ragistation();
+            ragistation.Mobile = Mobile;
+            ragistation.Name = Name;
+            ragistation.City = City;
+            ragistation.Address = Address;
+            ragistation.Create_Date = today;
             int d = ragistation.Save();
             if(d!=0)
             {
@@ -33,7 +40,7 @@ namespace Marketing.Controllers
             }
             return RedirectToAction("ItemLoadFunction","Home");
         }
-        public ActionResult getsession(DateTime Createdate)
+        public ActionResult getsession(System.DateTime Createdate)
         {
             List<Ragistation> listragistation = new Ragistation().GetAll();
             listragistation = listragistation.FindAll(x=>x.Create_Date==Createdate);
