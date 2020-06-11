@@ -8,139 +8,131 @@
     List<NewOrders> listnewOrder = ObjOrder.GetAll();
     List<OrderItems> listorderitems = OrderItems.GetAll();
     List<Orders> listorder = new Orders().GetAll();
-    foreach(var ordersitem in listorder)
+    foreach (var ordersitem in listnewOrder)
     {
         //var dateTime = DateTime.Today;
         //var myDate = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
-        var yrt = listnewOrder.FindAll(x => x.OID == ordersitem.OID);
-        foreach(var ss in yrt)
-        {
-            listnewOrder = listnewOrder.FindAll(x => x.RagisID == ss.RagisID);
-
-        }
+        var yrt = listnewOrder.FindAll(x => x.RagisID == ordersitem.RagisID);
+        listnewOrder = yrt.FindAll(x => x.RagisID == ordersitem.RagisID).ToList();
     }
+}
+        <div class="card">
+            <div class="card-header">
+                <h5 class="text-center text-danger"><b>Order List</b></h5>
+            </div>
+            <div class="card-body">
+                @foreach (var item in listnewOrder)
+                {
+                    var neworder = new NewOrders().GetAll();
+                    var neworder1 = new NewOrders().GetAll();
+                    var neworder2 = new NewOrders().GetAll();
+                    var bd = listragistation.FindAll(x => x.RagisID == item.RagisID);
+                    listragistation = bd.FindAll(x => x.RagisID == item.RagisID);
+                    var rg = neworder.FindAll(x => x.RagisID == item.RagisID);
+                    neworder = rg.FindAll(x => x.RagisID == item.RagisID);
+                    <div class="row w-100">
+                        <div class="row w-100 pt-3 pb-2" style="border:groove;border-color:#a8f56d">
+                            <div class=" col-sm-4">
+                                @Html.Label("Name :-")
+                                @foreach (var dd in listragistation)
+                                {
+                                    Ragistation ObjRagistation = listragistation.Find(x => x.RagisID == dd.RagisID);
+                                    @ObjRagistation.Name;
 
 
-    }
- 
-<div class="card">
-    <div class="card-header">
-        <h5 class="text-center text-danger"><b>Order List</b></h5>
-    </div>
-   
-    <div class="card-body">
-        @foreach (var item in listnewOrder)
-        {
-            var neworder = new NewOrders().GetAll();
-            var neworder1 = new NewOrders().GetAll();
-            var neworder2 = new NewOrders().GetAll();
-            var bd = listragistation.FindAll(x => x.RagisID == item.RagisID);
-            listragistation = bd.FindAll(x => x.RagisID == item.RagisID);
-            var rg = neworder.FindAll(x => x.OID == item.OID);
-            neworder = rg.FindAll(x => x.OID == item.OID);
-            <div class="row w-100">
-                <div class="row w-100 pt-3 pb-2" style="border:groove;border-color:#a8f56d">
-                    <div class=" col-sm-4">
-                        @Html.Label("Name :-")
-                        @foreach (var dd in listragistation)
-                        {
-                            Ragistation ObjRagistation = listragistation.Find(x => x.RagisID == dd.RagisID);
-                            @ObjRagistation.Name;
+                                }
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.Label("Address")
+                                @foreach (var dd in listragistation)
+                                {
+                                    Ragistation ObjRagistatio = listragistation.Find(x => x.RagisID == dd.RagisID);
+                                    @ObjRagistatio.Address;
+                                }
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.Label("Mobile")
+                                @foreach (var dd in listragistation)
+                                {
+                                    Ragistation ObjRagistatio = listragistation.Find(x => x.RagisID == dd.RagisID);
+                                    @ObjRagistatio.Mobile;
+                                }
+                            </div>
+                        </div>
+                        <div class="row w-100">
+                            <div class="col-sm-2">
+                                @Html.Label("Product Name")<br />
+                                <ul>
+                                    @foreach (var jj in neworder)
+                                    {
+                                        <li>
+                                            @jj.ProductName
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.Label("Product Prize")<br />
+                                <ul>
+                                    @foreach (var jj in neworder)
+                                    {
+                                        <li>
+                                            @jj.ProductPrize
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.Label("Quantity")<br />
+                                <ul>
+                                    @foreach (var jj in neworder)
+                                    {
+                                        <li>
+                                            @jj.Qty
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.Label("Total Quantity")<br />
+                                <ul>
+                                    @foreach (var jj in neworder)
+                                    {
+                                        <li>
+                                            @jj.TotalQty
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.Label("Total Prize")<br />
+                                <ul>
+
+                                    <li>
+                                        @item.PrizeTotal
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.Label("Order Date")<br />
+                                <ul>
+
+                                    <li>
+                                        @item.Create_Date
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
 
 
-                        }
                     </div>
-                    <div class="col-sm-4">
-                        @Html.Label("Address")
-                        @foreach (var dd in listragistation)
-                        {
-                            Ragistation ObjRagistatio = listragistation.Find(x => x.RagisID == dd.RagisID);
-                            @ObjRagistatio.Address;
-                        }
-                    </div>
-                    <div class="col-sm-4">
-                        @Html.Label("Mobile")
-                        @foreach (var dd in listragistation)
-                        {
-                            Ragistation ObjRagistatio = listragistation.Find(x => x.RagisID == dd.RagisID);
-                            @ObjRagistatio.Mobile;
-                        }
-                    </div>
-                </div>
-                <div class="row w-100">
-                    <div class="col-sm-2">
-                        @Html.Label("Product Name")<br />
-                        <ul>
-                            @foreach (var jj in neworder)
-                            {
-                                <li>
-                                    @jj.ProductName
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.Label("Product Prize")<br />
-                        <ul>
-                            @foreach (var jj in neworder)
-                            {
-                                <li>
-                                    @jj.ProductPrize
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.Label("Quantity")<br />
-                        <ul>
-                            @foreach (var jj in neworder)
-                            {
-                                <li>
-                                    @jj.Qty
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.Label("Total Quantity")<br />
-                        <ul>
-                            @foreach (var jj in neworder)
-                            {
-                                <li>
-                                    @jj.TotalQty
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.Label("Total Prize")<br />
-                        <ul>
 
-                            <li>
-                                @item.PrizeTotal
-                            </li>
-
-                        </ul>
-                    </div>
-                    <div class="col-sm-2">
-                        @Html.Label("Order Date")<br />
-                        <ul>
-                            
-                            <li>
-                                @item.Create_Date
-                            </li>
-                           
-                        </ul>
-                    </div>
-                </div>
-                 
-
+                }
             </div>
 
-        }
-    </div>
-    
-</div>
+        </div>
 
 
 
