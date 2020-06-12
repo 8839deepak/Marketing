@@ -113,7 +113,7 @@ namespace Marketing.Models
             List<NewOrders> listItem = new List<NewOrders>();
             try
             {
-                string Quary = "Select * From NewOrders   ORDER BY  NID DESC";
+                string Quary = "Select RagisID From NewOrders where Date group by RagisID";
                 cmd = new SqlCommand(Quary, dBCon.Con);
                 SDR = cmd.ExecuteReader();
                 while (SDR.Read())
@@ -137,6 +137,34 @@ namespace Marketing.Models
             finally { cmd.Dispose(); dBCon.Con.Close(); }
             return (listItem);
         }
+        
+        public List<NewOrders>GroupbyRagisID()
+        {
+            DBCon dBCon = new DBCon();
+            SqlCommand cmd = null;
+            SqlDataReader SDR = null;
+            List<NewOrders> listItem = new List<NewOrders>();
+            try
+            {
+                string Quary = "Select RagisID From NewOrders  group by RagisID";
+                cmd = new SqlCommand(Quary, dBCon.Con);
+                SDR = cmd.ExecuteReader();
+                while (SDR.Read())
+                {
+                    listItem.Add(new NewOrders()
+                    {
+                        
+                        RagisID = SDR.GetInt32(0),
+                        //Create_Date = SDR.GetDateTime(0),
+                    });
+
+                }
+            }
+            catch (IndexOutOfRangeException e) { e.ToString(); }
+            finally { cmd.Dispose(); dBCon.Con.Close(); }
+            return (listItem);
+        }
     }
+    
    
 }

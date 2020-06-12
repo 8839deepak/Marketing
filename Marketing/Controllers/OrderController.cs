@@ -14,11 +14,11 @@ namespace Marketing.Controllers
         public ActionResult Index( DateTime dateTime)
         {
             Ragistation ObjRagistation = new Ragistation();
-            List<Ragistation> ragistations = ObjRagistation.GetAll();
-            List<NewOrders> listneworder = new NewOrders().GetAll();
+            //List<Ragistation> ragistations = ObjRagistation.GetAll();
+            List<NewOrders> listneworder = new NewOrders().GroupbyRagisID();
             var myDate = new DateTime(dateTime.Year, dateTime.Day, dateTime.Month);
-            ragistations = ragistations.FindAll(x => x.Create_Date == myDate);
-           
+            listneworder = listneworder.FindAll(x => x.Create_Date == myDate);
+
             return View(listneworder);
         }
         public ActionResult NewOrderIndex()
