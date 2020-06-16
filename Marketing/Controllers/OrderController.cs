@@ -11,14 +11,18 @@ namespace Marketing.Controllers
     public class OrderController : Controller
     {
         // GET: Order
-        public ActionResult Index( DateTime dateTime)
+        public ActionResult Index()
         {
-            Ragistation ObjRagistation = new Ragistation();
-            //List<Ragistation> ragistations = ObjRagistation.GetAll();
-            List<NewOrders> listneworder = new NewOrders().GroupbyRagisID();
-            var myDate = new DateTime(dateTime.Year, dateTime.Day, dateTime.Month);
-            listneworder = listneworder.FindAll(x => x.Create_Date == myDate);
+            var listorder = new Orders().GetAll();
+            var dateTime = DateTime.Today;
+            List<NewOrders> listneworder = new NewOrders().GetAll();
 
+            listorder = listorder.FindAll(x => x.Create_Date == dateTime);
+                foreach (var dd in listorder)
+                {
+                    listneworder = listneworder.FindAll(x => x.Create_Date == dateTime && x.RagisID == dd.RagisID);
+                }
+           
             return View(listneworder);
         }
         public ActionResult NewOrderIndex()

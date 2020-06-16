@@ -90,8 +90,8 @@ namespace Marketing.Models
                     Quary = "insert into NewOrders values(@OID,@ProductName,@ProductPrize,@Qty,@TotalQty,@PrizeTotal,@RagisID,@Create_Date);";
                 }
                 cmd = new SqlCommand(Quary, dBCon.Con);
-                cmd.Parameters.AddWithValue("@OID", this.OID);
                 cmd.Parameters.AddWithValue("@NID", this.NID);
+                cmd.Parameters.AddWithValue("@OID", this.OID);
                 cmd.Parameters.AddWithValue("@ProductName", this.ProductName);
                 cmd.Parameters.AddWithValue("@ProductPrize", this.ProductPrize);
                 cmd.Parameters.AddWithValue("@Qty", this.Qty);
@@ -113,7 +113,7 @@ namespace Marketing.Models
             List<NewOrders> listItem = new List<NewOrders>();
             try
             {
-                string Quary = "Select RagisID From NewOrders where Date group by RagisID";
+                string Quary = "Select *From NewOrders ORDER BY  NID DESC";
                 cmd = new SqlCommand(Quary, dBCon.Con);
                 SDR = cmd.ExecuteReader();
                 while (SDR.Read())
