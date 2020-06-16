@@ -17,7 +17,6 @@ namespace Marketing.Models
         public int UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }
         public int CatID { get; set; }
-        public int QunID { get; set; }
         public List<Orders> listOrder { get; set; }
         public int Save()
         {
@@ -29,11 +28,11 @@ namespace Marketing.Models
                 string Quary = "";
                 if (this.ItemID == 0)
                 {
-                    Quary = "Insert Into Items values (@Photo_File,@Name,@Prize,@CreateBy,@CreateDate,@UpdateBy,@UpdateDate,@CatID,@QunID)";
+                    Quary = "Insert Into Items values (@Photo_File,@Name,@Prize,@CreateBy,@CreateDate,@UpdateBy,@UpdateDate,@CatID )";
                 }
                 else
                 {
-                    Quary = "Update Items Set Photo_File=@Photo_File,Name=@Name,Prize=@Prize,CreateBy=@CreateBy,CreateDate=@CreateDate,UpdateBy=@UpdateBy,UpdateDate=@UpdateDate,CatID=@CatID,QunID=@QunID where ItemID=@ItemID";
+                    Quary = "Update Items Set Photo_File=@Photo_File,Name=@Name,Prize=@Prize,CreateBy=@CreateBy,CreateDate=@CreateDate,UpdateBy=@UpdateBy,UpdateDate=@UpdateDate,CatID=@CatID  where ItemID=@ItemID";
                 }
                 cmd = new SqlCommand(Quary, dBCon.Con);
                 cmd.Parameters.AddWithValue("@ItemID", this.ItemID);
@@ -45,7 +44,6 @@ namespace Marketing.Models
                 cmd.Parameters.AddWithValue("@UpdateBy", this.UpdateBy);
                 cmd.Parameters.AddWithValue("@UpdateDate", DateTime.Now);
                 cmd.Parameters.AddWithValue("@CatID", this.CatID);
-                cmd.Parameters.AddWithValue("@QunID", this.QunID);
                 if (this.ItemID == 0)
                 {
                     Row = Convert.ToInt32(cmd.ExecuteScalar());
@@ -80,7 +78,6 @@ namespace Marketing.Models
                         Name = SDR.GetString(2),
                         Prize = SDR.GetInt32(3),
                         CatID = SDR.GetInt32(8),
-                        QunID = SDR.GetInt32(9)
                     });
 
                 }
@@ -108,7 +105,6 @@ namespace Marketing.Models
                     ObjTmp.Name = SDR.GetString(2);
                     ObjTmp.Prize = SDR.GetInt32(3);
                     ObjTmp.CatID = SDR.GetInt32(8);
-                    ObjTmp.QunID = SDR.GetInt32(9);
                 }
             }
             catch (System.Exception e) { e.ToString(); }

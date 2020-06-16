@@ -16,13 +16,11 @@ namespace Marketing.Controllers
             var listorder = new Orders().GetAll();
             var dateTime = DateTime.Today;
             List<NewOrders> listneworder = new NewOrders().GetAll();
+                    listneworder = listneworder.FindAll(x => x.Create_Date == dateTime);
+            //var getUser = listneworder.Where(a => a.ProductName == User.Identity.Name).FirstOrDefault();
+            //var sde = listneworder.Where(a => a.RagisID == getUser.RagisID)
+            // .Select(t => new NewOrders { ProductName = t.ProductName, ProductPrize = t.ProductPrize, Qty = t.Qty, TotalQty = t.TotalQty, PrizeTotal = t.PrizeTotal, RagisID = t.RagisID }).ToList();
 
-            listorder = listorder.FindAll(x => x.Create_Date == dateTime);
-                foreach (var dd in listorder)
-                {
-                    listneworder = listneworder.FindAll(x => x.Create_Date == dateTime && x.RagisID == dd.RagisID);
-                }
-           
             return View(listneworder);
         }
         public ActionResult NewOrderIndex()
