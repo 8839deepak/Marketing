@@ -41,7 +41,7 @@ namespace Marketing.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Abandon(); // it will clear the session at the end of request
-            return RedirectToAction("ItemLoadFunction", "Home");
+            return RedirectToAction("Login", "Home");
         }
         public ActionResult PopUp()
         {

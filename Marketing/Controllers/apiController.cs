@@ -24,5 +24,18 @@ namespace Marketing.Controllers
             return JObject.FromObject(ObjItem);
 
         }
+        [HttpPost]
+        public JObject QuamtityList(int QuntID)
+        {
+            List<Quantity> listquantity = Quantity.GetAll();
+            var AllQuantityLst = listquantity.FindAll(x=>x.QunID==QuntID);
+            return JObject.FromObject(AllQuantityLst);
+        }
+        public JObject Itemslist(int itemid)
+        {
+            List<Items> listitems = Items.GetAll();
+            var allItems = listitems.FindAll(x=>x.ItemID==itemid);
+            return JObject.FromObject(allItems);
+        }
     }
 }
