@@ -31,11 +31,10 @@ namespace Marketing.Controllers
             var AllQuantityLst = listquantity.FindAll(x=>x.QunID==QuntID);
             return JObject.FromObject(AllQuantityLst);
         }
-        public JObject Itemslist(int itemid)
+        public JObject Itemslist()
         {
             List<Items> listitems = Items.GetAll();
-            var allItems = listitems.FindAll(x=>x.ItemID==itemid);
-            return JObject.FromObject(allItems);
+            return JObject.FromObject(listitems);
         }
     }
 }
