@@ -36,6 +36,6 @@ namespace Marketing.Controllers
             List<Items> listitems = Items.GetAll();
             var allItems = listitems.FindAll(x=>x.ItemID==itemid);
             return JObject.FromObject(allItems);
-        }
+        } 
     }
 }
