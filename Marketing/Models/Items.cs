@@ -18,7 +18,6 @@ namespace Marketing.Models
         public DateTime UpdateDate { get; set; }
         public int CatID { get; set; }
         public List<Orders> listOrder { get; set; }
-
         public int Save()
         {
             int Row = 0;
